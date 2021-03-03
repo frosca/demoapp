@@ -6,28 +6,28 @@ services:
     volumes:
     - ./ui:/var/www/html
     ports:
-    - 5000:80
+    - 50001:80
     depends_on:
-      - app
+      - appdemo
 
-  app:
+  appdemo:
     image: 'frosca/demoapp:latest'
     build:
       context: ./
-    container_name: app
+    container_name: appdemo
     depends_on:
-      - db
+      - demodb
     ports:
     - 8080:8080
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://demodb:5432/compose-postgres
       - SPRING_DATASOURCE_USERNAME=compose-postgres
       - SPRING_DATASOURCE_PASSWORD=compose-postgres
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
 
-  db:
+  demodb:
     image: 'postgres:13.1-alpine'
-    container_name: db
+    container_name: demodb
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
