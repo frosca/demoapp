@@ -18,7 +18,7 @@ node {
  }
 
  stage('Health Check') {
-    def response = bat 'curl http://localhost:8080/actuator/health'
+    def response = bat 'curl http://localhost:8080/api/get'
     echo '${response}'
  }
  
